@@ -292,6 +292,7 @@ function HarpoonList:select(index, options)
             Extensions.event_names.SELECT,
             { list = self, item = item, idx = index }
         )
+        self._index = index
         self.config.select(item, self, options)
     end
 end
