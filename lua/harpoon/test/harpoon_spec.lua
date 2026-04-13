@@ -87,7 +87,7 @@ describe("harpoon", function()
         vim.api.nvim_set_current_buf(other_buf)
 
         expect_data({
-            [Config.DEFAULT_LIST] = {
+            [Config.DEFAULT_LIST(harpoon.config)] = {
                 {
                     context = {
                         col = 0,
@@ -167,7 +167,7 @@ describe("harpoon", function()
         harpoon:list():add()
 
         expect_data({
-            [Config.DEFAULT_LIST] = {
+            [Config.DEFAULT_LIST(harpoon.config)] = {
                 { value = file_name_1, context = { row = row_1, col = col_1 } },
             },
         })
@@ -175,7 +175,7 @@ describe("harpoon", function()
         utils.create_file(file_name_2, contents, row_2, col_2)
         harpoon:list():prepend()
         expect_data({
-            [Config.DEFAULT_LIST] = {
+            [Config.DEFAULT_LIST(harpoon.config)] = {
                 { value = file_name_2, context = { row = row_2, col = col_2 } },
                 { value = file_name_1, context = { row = row_1, col = col_1 } },
             },
@@ -183,7 +183,7 @@ describe("harpoon", function()
 
         harpoon:list():add()
         expect_data({
-            [Config.DEFAULT_LIST] = {
+            [Config.DEFAULT_LIST(harpoon.config)] = {
                 { value = file_name_2, context = { row = row_2, col = col_2 } },
                 { value = file_name_1, context = { row = row_1, col = col_1 } },
             },
@@ -192,7 +192,7 @@ describe("harpoon", function()
         vim.api.nvim_set_current_buf(bufnr_1)
         harpoon:list():prepend()
         expect_data({
-            [Config.DEFAULT_LIST] = {
+            [Config.DEFAULT_LIST(harpoon.config)] = {
                 { value = file_name_2, context = { row = row_2, col = col_2 } },
                 { value = file_name_1, context = { row = row_1, col = col_1 } },
             },
@@ -225,6 +225,6 @@ describe("harpoon", function()
         eq({}, ext_config.foo)
 
         eq(true, list_created)
-        eq(Config.DEFAULT_LIST, list_name)
+        eq(Config.DEFAULT_LIST(harpoon.config), list_name)
     end)
 end)

@@ -9,8 +9,16 @@ local function to_exact_name(value)
 end
 
 local M = {}
-local DEFAULT_LIST = "__harpoon_files"
-M.DEFAULT_LIST = DEFAULT_LIST
+function M.DEFAULT_LIST(config)
+    if config.settings.new_default_list_behavior and
+        config.settings.key() == "<global>" then
+        return vim.uv.cwd()
+    end
+    -- Original value.
+    return "__harpoon_files"
+end
+--local DEFAULT_LIST = "__harpoon_files"
+--M.DEFAULT_LIST = DEFAULT_LIST
 
 ---@alias HarpoonListItem {value: any, context: any}
 ---@alias HarpoonListFileItem {value: string, context: {row: number, col: number}}

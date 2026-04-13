@@ -56,7 +56,7 @@ end
 ---@param name string?
 ---@return HarpoonList
 function Harpoon:list(name)
-    name = name or Config.DEFAULT_LIST
+    name = name or Config.DEFAULT_LIST(self.config)
 
     local key = self.config.settings.key()
     local lists = self.lists[key]
