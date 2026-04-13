@@ -2,6 +2,8 @@ local Buffer = require("harpoon.buffer")
 local Logger = require("harpoon.logger")
 local Extensions = require("harpoon.extensions")
 
+local Path = require("plenary.path")
+
 ---@class HarpoonToggleOptions
 ---@field border? any this value is directly passed to nvim_open_win
 ---@field title_pos? any this value is directly passed to nvim_open_win
@@ -142,7 +144,8 @@ function HarpoonUI:toggle_quick_menu(list, opts)
     end
 
     -- grab the current file before opening the quick menu
-    local current_file = vim.api.nvim_buf_get_name(0)
+    -- On windows, the returned path has / separator, unified with Plenary.
+    local current_file = Path:new(vim.api.nvim_buf_get_name(0)):absolute()
 
     Logger:log("ui#toggle_quick_menu#opening", list and list.name)
     local win_id, bufnr = self:_create_window(opts)
